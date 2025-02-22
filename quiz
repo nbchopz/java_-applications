@@ -1,0 +1,62 @@
+quiz game 2
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class SimpleMillionaireGame extends JFrame {
+    private JLabel questionLabel;
+    private JButton answerButton1;
+    private JButton answerButton2;
+    private JButton answerButton3;
+    private JButton answerButton4;
+
+    public SimpleMillionaireGame() {
+        setTitle("NBCHOPZ Wants You to Be a Millionaire");
+        setSize(400, 200);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new FlowLayout());
+
+        questionLabel = new JLabel("What is the capital of France?");
+        answerButton1 = new JButton("Paris");
+        answerButton2 = new JButton("London");
+        answerButton3 = new JButton("Berlin");
+        answerButton4 = new JButton("Madrid");
+
+        answerButton1.addActionListener(new AnswerListener(true));
+        answerButton2.addActionListener(new AnswerListener(false));
+        answerButton3.addActionListener(new AnswerListener(false));
+        answerButton4.addActionListener(new AnswerListener(false));
+
+        add(questionLabel);
+        add(answerButton1);
+        add(answerButton2);
+        add(answerButton3);
+        add(answerButton4);
+    }
+
+    private class AnswerListener implements ActionListener {
+        private boolean isCorrect;
+
+        public AnswerListener(boolean isCorrect) {
+            this.isCorrect = isCorrect;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (isCorrect) {
+                JOptionPane.showMessageDialog(null, "Correct! You are a millionaire!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Wrong answer! Better luck next time.");
+            }
+            System.exit(0); // Exit the game after answering
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            SimpleMillionaireGame game = new SimpleMillionaireGame();
+            game.setVisible(true);
+        });
+    }
+}
